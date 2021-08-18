@@ -69,7 +69,7 @@
 ;;; Check for timeout parameter in bordeaux-threads:condition-wait.
 (eval-when (:compile-toplevel :execute)
   ;; use special to defeat compiler analysis
-  (print "P1")
+  (print "P1 NEW")
   (defparameter *condition-wait* #'bordeaux-threads:condition-wait)
   (print "P1.1")
   (flet ((has-condition-wait-timeout-p ()
