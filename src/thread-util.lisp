@@ -71,16 +71,18 @@
   ;; use special to defeat compiler analysis
   (print "P1")
   (defparameter *condition-wait* #'bordeaux-threads:condition-wait)
-
+  (print "P1.1")
   (flet ((has-condition-wait-timeout-p ()
            (let* ((lock (bordeaux-threads:make-lock))
                   (cvar (bordeaux-threads:make-condition-variable))
                   (args `(,cvar ,lock :timeout 0.001)))
+             (print "AOUA")
              (bordeaux-threads:with-lock-held (lock)
                (ignore-errors
                  (apply *condition-wait* args)
                  t)))))
     (unless (has-condition-wait-timeout-p)
+      (print "OUAOU")
       (pushnew :lparallel.without-bordeaux-threads-condition-wait-timeout
                *features*)))
   (print "P1C"))
